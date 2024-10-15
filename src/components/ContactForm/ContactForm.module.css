@@ -1,0 +1,40 @@
+.list {
+  gap: 12px;
+  padding: 12px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  border: 1px solid rgb(12, 12, 12);
+  padding: 8px;
+  gap: 8px;
+  width: 400px;
+}
+
+.errorMessage {
+  color: rgb(177, 23, 23);
+  margin: 0;
+}
+
+.text {
+  padding: 2px 8px;
+  border: 1px solid #010101;
+}
+
+.text:hover,
+.text:focus {
+  border-color: #646cff;
+  outline: none;
+}
+
+.addBtn {
+  font-size: 16px;
+  transition: border-color 0.25s;
+  width: fit-content;
+  margin: 0 auto;
+}
+.addBtn:hover {
+  border-color: #646cff;
+}

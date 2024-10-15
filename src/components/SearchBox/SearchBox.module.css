@@ -1,0 +1,15 @@
+.search {
+  padding: 12px;
+}
+
+.input {
+  width: 400px;
+  padding: 2px 8px;
+  border: 1px solid #010101;
+}
+
+.input:hover,
+.input:focus {
+  border-color: #646cff;
+  outline: none;
+}

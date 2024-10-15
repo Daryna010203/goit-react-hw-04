@@ -1,0 +1,12 @@
+.box {
+  margin-bottom: 8px;
+}
+
+span {
+  margin-left: 8px;
+}
+
+.Btn {
+  display: flex;
+  justify-content: space-around;
+}
