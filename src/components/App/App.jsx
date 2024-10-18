@@ -17,6 +17,7 @@ const App = () => {
   const [query, setQuery] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const onSearch = userSearch => {
     setQuery(userSearch);
@@ -37,10 +38,10 @@ const App = () => {
         console.log(response);
 
         const fetchedImages = response.data.results;
-        const totalPages = response.data.total_pages; // Получаем количество страниц
+        const totalPages = response.data.total_pages;
 
-        setImages(prevImages => [...prevImages, ...fetchedImages]); // Добавляем новые изображения к старым
-        setTotalPages(totalPages); // Сохраняем общее количество страниц
+        setImages(prevImages => [...prevImages, ...fetchedImages]);
+        setTotalPages(totalPages);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -53,8 +54,27 @@ const App = () => {
 
   const loadMoreImages = () => {
     if (page < totalPages) {
-      setPage(prevPage => prevPage + 1); // Увеличиваем номер страницы
+      setPage(prevPage => prevPage + 1);
     }
+  };
+  useEffect(() => {
+    if (page >= 1) {
+      // Используем небольшой таймаут, чтобы дождаться рендеринга изображений перед прокруткой
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 500); // Задержка на 500ms
+    }
+  }, [images, page]);
+
+  const openImageModal = (imageUrl, imageAlt) => {
+    setSelectedImage({ imageUrl, imageAlt }); // Відкриття модального вікна
+  };
+
+  const closeImageModal = () => {
+    setSelectedImage(null); // Закриття модального вікна
   };
 
   return (
@@ -62,11 +82,22 @@ const App = () => {
       <SearchBar onSearch={onSearch} />
 
       {error && <ErrorMessage error={error} />}
-      {images.length > 0 && <ImageGallery items={images} />}
+      {images.length > 0 && (
+        <ImageGallery items={images} onImageClick={openImageModal} />
+      )}
       {images.length > 0 && page < totalPages && !loading && (
         <LoadMoreBtn onClick={loadMoreImages} />
       )}
       {loading && <Loader />}
+      {/* Модальне вікно */}
+      {selectedImage && (
+        <ImageModal
+          isOpen={!!selectedImage}
+          onRequestClose={closeImageModal}
+          imageUrl={selectedImage.imageUrl}
+          imageAlt={selectedImage.imageAlt}
+        />
+      )}
     </section>
   );
 };
