@@ -1,5 +1,7 @@
 import css from './SearchBar.module.css';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { TfiSearch } from 'react-icons/tfi';
+
 import toast, { Toaster } from 'react-hot-toast';
 
 const initialValues = { userSearch: '' };
@@ -16,24 +18,26 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <header>
+    <header className={css.header}>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form className={css.form}>
-          <Field
-            type="text"
-            className={css.text}
-            name="userSearch"
-            placeholder="Search images and photos"
-            autoFocus
-          />
-          <ErrorMessage
-            className={css.errorMessage}
-            name="userSearch"
-            component="span"
-          />
-          <button type="submit" className={css.addBtn}>
-            Search
-          </button>
+          <div>
+            <button type="submit" name="userSearch" className={css.Btn}>
+              <TfiSearch />
+            </button>
+            <Field
+              type="text"
+              className={css.text}
+              name="userSearch"
+              placeholder="Search images and photos"
+              autoFocus
+            />
+            <ErrorMessage
+              className={css.errorMessage}
+              name="userSearch"
+              component="span"
+            />
+          </div>
           <Toaster />
         </Form>
       </Formik>

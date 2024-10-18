@@ -33,7 +33,7 @@ const App = () => {
         setLoading(true);
 
         const response = await axios.get(
-          `https://api.unsplash.com/search/photos?client_id=31vOygG6dJTDM4WYDN9lcflKaCM7oYZNQcHe6lBV_Co&page=${page}&query=${query}`
+          `https://api.unsplash.com/search/photos?client_id=31vOygG6dJTDM4WYDN9lcflKaCM7oYZNQcHe6lBV_Co&page=${page}&per_page=12&query=${query}`
         );
         console.log(response);
 
@@ -59,27 +59,28 @@ const App = () => {
   };
   useEffect(() => {
     if (page >= 1) {
-      // Используем небольшой таймаут, чтобы дождаться рендеринга изображений перед прокруткой
       setTimeout(() => {
         window.scrollTo({
           top: document.documentElement.scrollHeight,
           behavior: 'smooth',
         });
-      }, 500); // Задержка на 500ms
+      }, 500);
     }
   }, [images, page]);
 
   const openImageModal = (imageUrl, imageAlt) => {
-    setSelectedImage({ imageUrl, imageAlt }); // Відкриття модального вікна
+    setSelectedImage({ imageUrl, imageAlt });
   };
 
   const closeImageModal = () => {
-    setSelectedImage(null); // Закриття модального вікна
+    setSelectedImage(null);
   };
 
   return (
     <section>
-      <SearchBar onSearch={onSearch} />
+      <div className={css.search}>
+        <SearchBar onSearch={onSearch} />
+      </div>
 
       {error && <ErrorMessage error={error} />}
       {images.length > 0 && (
@@ -89,7 +90,7 @@ const App = () => {
         <LoadMoreBtn onClick={loadMoreImages} />
       )}
       {loading && <Loader />}
-      {/* Модальне вікно */}
+
       {selectedImage && (
         <ImageModal
           isOpen={!!selectedImage}

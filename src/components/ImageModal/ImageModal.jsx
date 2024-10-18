@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import css from './ImageModal.module.css';
 
 const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
-  // Обробка натискання ESC для закриття модального вікна
   useEffect(() => {
     const handleEsc = event => {
       if (event.key === 'Escape') {
@@ -19,10 +18,10 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
   return (
     <ReactModal
       isOpen={isOpen}
-      onRequestClose={onRequestClose} // Закриття при кліку поза межами модалки
-      className={css.modalContent} // Класи для стилізації модального вікна
-      overlayClassName={css.modalOverlay} // Класи для стилізації фону
-      ariaHideApp={false} // Не ховаємо основний контент (для демо)
+      onRequestClose={onRequestClose}
+      className={css.modalContent}
+      overlayClassName={css.modalOverlay}
+      ariaHideApp={false}
     >
       <button onClick={onRequestClose} className={css.closeButton}>
         ✖
